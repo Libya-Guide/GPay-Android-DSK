@@ -1,1 +1,1 @@
-# GPay-Android-DSK
+# GPay-Android-SDK
