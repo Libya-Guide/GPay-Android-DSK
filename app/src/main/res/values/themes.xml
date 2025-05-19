@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">#1C5C93</item>
+        <item name="colorPrimaryVariant">#114B7D</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+</resources>
