@@ -18,7 +18,7 @@ allprojects {
 ### 2. Add the dependency to your app's build.gradle`
 ```groovy
 dependencies {
-	   implementation 'com.github.esraelboa:new-gpay-sdk:v0.0.4'
+	   implementation 'com.github.Libya-Guide:GPay-Android-DSK:0.0.1'
 	}
 ```
 ### 3. Sync your project.
