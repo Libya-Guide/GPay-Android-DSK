@@ -12,14 +12,14 @@ public class GpayPayment implements Serializable {
     private String baseUrl;
     private String requestTimestamp;
 
-    public GpayPayment(String amount, String requestId, String requester_username,String requestTimestamp , GpayUrl gpayUrl) {
+//    public static PaymentResultListener paymentResultListener;
+    public GpayPayment(String amount, String requestId, String requester_username, String requestTimestamp , GpayUrl gpayUrl) {
         this.amount = amount;
         this.requestId = requestId;
         this.requesterUsername = requester_username;
         this.requestTimestamp = requestTimestamp;
         this.baseUrl= gpayUrl.getUrl();
     }
-
 
     public void show(Activity activity, PaymentResultListener listener) {
         PaymentWebViewActivity.paymentResultListener = listener;

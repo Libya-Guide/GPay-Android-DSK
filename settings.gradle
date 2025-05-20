@@ -13,5 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "gpaypaymentSdk"
+rootProject.name = "My Application"
 include ':app'
+include ':gpaypaymentsdk'

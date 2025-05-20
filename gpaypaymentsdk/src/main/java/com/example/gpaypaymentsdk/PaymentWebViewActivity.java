@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -31,11 +30,14 @@ public class PaymentWebViewActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.payment_toolbar);
         setSupportActionBar(toolbar);
 
-
+// Optional: Add back button or close logic
         toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener(v -> finish());
         setupWebView();
+        Log.d("test1", "PaymentWebViewActivity onCreate called");
+
         String url = getIntent().getStringExtra("url");
+        Log.d("test1", "PaymentWebViewActivity called  "+ url);
         if (url != null) {
             webView.loadUrl(url);
         }
@@ -46,6 +48,7 @@ public class PaymentWebViewActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        Log.d("test1", "onNewIntent called");
         setIntent(intent);
         handleIncomingDeepLink(intent);
     }
@@ -73,6 +76,7 @@ public class PaymentWebViewActivity extends AppCompatActivity {
                 }
             }
             public void onPageFinished(WebView view, String url) {
+                Log.d("test1", "onPageFinished called");
 
                 isPageLoaded = true;
                 if (pendingJSCall != null) {
@@ -83,6 +87,7 @@ public class PaymentWebViewActivity extends AppCompatActivity {
         });
     }
     private void handleIncomingDeepLink(Intent intent) {
+        Log.d("test1", "handleIncomingDeepLink called");
 
         Uri uri = intent.getData();
         Bundle extras = getIntent().getExtras();
@@ -94,6 +99,7 @@ public class PaymentWebViewActivity extends AppCompatActivity {
             String request_id = extras.getString("request_id");
             String request_time = extras.getString("request_time");
 
+            Log.d("test1", "request_id "+request_id );
 
             // 1. Call JS function in WebView
             String js = "javascript:onApp2Result('" + status + "', '" + amount + "')";
@@ -112,7 +118,7 @@ public class PaymentWebViewActivity extends AppCompatActivity {
             // finish();
 
         } else {
-          Log.d("gpay_sdk", "handleIncomingDeepLink: URI not matched");
+          Log.d("test1", "handleIncomingDeepLink: URI not matched");
         }
     }
 

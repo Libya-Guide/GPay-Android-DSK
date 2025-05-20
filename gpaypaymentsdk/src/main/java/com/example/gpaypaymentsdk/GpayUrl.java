@@ -1,8 +1,8 @@
 package com.example.gpaypaymentsdk;
 
 public enum GpayUrl {
-    TESTING_STAGE("http://192.168.997.152:5500"),
-    PRODUCTION("http://192.168.97.152:5500");
+    TESTING_STAGE("https://gpay-staging.libyaguide.net/banking/"),
+    PRODUCTION("https://gpay.ly/banking/");
     private final String url;
     GpayUrl(String url) {
         this.url = url;

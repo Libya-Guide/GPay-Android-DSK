@@ -1,1 +1,0 @@
-# GPay-Android-SDK
