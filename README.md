@@ -1,7 +1,11 @@
 # 🏦 GPay Payment SDK
 
 The **GPay Payment SDK** allows Android developers to easily launch a payment page within their app and handle the payment result via a simple callback.
+### Prerequisites
+- You must have an active GPay merchant account to initiate payment requests.
+- you must have access to Gpay Api by obtaining your API credentials (API key, secret Key, and  Password ) from the GPay Portal. These credentials are required to authenticate and authorize all API requests.
 
+- A payment request  must be created.
 ---
 
 ## 📦 SDK Installation
@@ -26,6 +30,7 @@ dependencies {
 
 ## 🚀 Usage
 To trigger a payment using the SDK, create a GpayPayment instance with the required parameters and call show(). You will receive the result via the PaymentResultListener.
+
 ### ✅ Example
  ``` java
 public void onPayWithGpayClicked(View view) {
@@ -49,3 +54,5 @@ public void onPayWithGpayClicked(View view) {
 **Choose the correct environment:**
 - `GpayUrl.PRODUCTION` – for live usage  
 - `GpayUrl.TESTING_STAGE` – for testing and development
+
+#### For An Example check [https://github.com/Libya-Guide/GPay-Android-Example]
