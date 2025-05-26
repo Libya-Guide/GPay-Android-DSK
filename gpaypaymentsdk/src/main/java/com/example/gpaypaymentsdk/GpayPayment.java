@@ -25,7 +25,7 @@ public class GpayPayment implements Serializable {
         PaymentWebViewActivity.paymentResultListener = listener;
 
         String fullUrl = baseUrl +
-                "/?amount=" + amount +
+                "?amount=" + amount +
                 "&requester_username=" + requesterUsername +
                 "&request_id=" + requestId +
                 "&request_time=" + requestTimestamp;
