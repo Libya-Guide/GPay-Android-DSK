@@ -2,8 +2,13 @@ package com.example.gpaypaymentsdk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Binder;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class GpayPayment implements Serializable {
     private String amount;
@@ -23,16 +28,25 @@ public class GpayPayment implements Serializable {
 
     public void show(Activity activity, PaymentResultListener listener) {
         PaymentWebViewActivity.paymentResultListener = listener;
+        try {
+            String installer = activity.getPackageManager().getNameForUid(Binder.getCallingUid());
+            ApplicationInfo appInfo = activity.getPackageManager().getApplicationInfo(installer, 0);
+            String appName = activity.getPackageManager().getApplicationLabel(appInfo).toString();
+            String fullUrl = baseUrl +
+                    "?amount=" + amount +
+                    "&requester_username=" + requesterUsername +
+                    "&request_id=" + requestId +
+                    "&request_time=" + requestTimestamp+
+                    "&app_name=" + URLEncoder.encode(appName, "UTF-8");
 
-        String fullUrl = baseUrl +
-                "?amount=" + amount +
-                "&requester_username=" + requesterUsername +
-                "&request_id=" + requestId +
-                "&request_time=" + requestTimestamp;
-
-        Intent intent = new Intent(activity, PaymentWebViewActivity.class);
-        intent.putExtra("url", fullUrl);
-        activity.startActivity(intent);
+            Intent intent = new Intent(activity, PaymentWebViewActivity.class);
+            intent.putExtra("url", fullUrl);
+            activity.startActivity(intent);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void closePaymentWebViewActivity() {

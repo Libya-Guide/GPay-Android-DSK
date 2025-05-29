@@ -12,6 +12,7 @@ import com.example.gpaypaymentsdk.GpayPayment;
 import com.example.gpaypaymentsdk.GpayUrl;
 import com.example.gpaypaymentsdk.PaymentResultListener;
 public class MainActivity extends AppCompatActivity {
+    GpayPayment payment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPayWithGpayClicked(View view) {
 
-        GpayPayment payment = new GpayPayment(
+         payment = new GpayPayment(
                 "50.000",
                 "0edf0e40-62ab-4b80-83d6-c9fd7ce801f1",
                 "requster_username",
@@ -34,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
         payment.show(MainActivity.this, new PaymentResultListener() {
             @Override
             public void checkPayment(UUID requestId, String requestTimestamp) {
-                Log.d("test1", "check payment status ! request_id : " + requestId + " request_timestamp : " + requestTimestamp);
-                Toast.makeText(MainActivity.this, "Payment Success: " + requestId, Toast.LENGTH_SHORT).show();
+                // Perform your check-payment request here
+                Log.d("GpayPayment SDK", "check payment  With request_id : " + requestId + " request_timestamp : " + requestTimestamp);
+                Toast.makeText(MainActivity.this, " Perform your check-payment with : " + requestId, Toast.LENGTH_SHORT).show();
             }
         });
     }
-
+    public void closePaymentActivity() {
+        payment.closePaymentWebViewActivity();
+    }
 }

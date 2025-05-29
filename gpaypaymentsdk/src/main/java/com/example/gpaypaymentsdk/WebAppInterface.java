@@ -15,28 +15,25 @@ import java.util.UUID;
 
 public class WebAppInterface {
        Context mContext;
-       String callbackUrl = "app1://gpaypaymentcallback#callback;";
        WebAppInterface(Context context) {
            mContext = context;
        }
 
        @JavascriptInterface
-       public void openOtherApp(String requester_username, String amount,String request_id, String request_time) throws JSONException, UnsupportedEncodingException {
+       public void openOtherApp(String requester_username, String amount,String request_id, String request_time,String app_name) throws JSONException, UnsupportedEncodingException {
            JSONObject json = new JSONObject();
            json.put("request_id", request_id);
            json.put("requester_username", requester_username);
            json.put("request_time", request_time);
+           json.put("app_name", app_name);
 
            String js = URLEncoder.encode(json.toString(), "UTF-8");
-           String callback = URLEncoder.encode(callbackUrl, "UTF-8");
 
            String uri = "intent://makepaymentto" +
                    "#Intent;" +
                    "scheme=gpay;" +
                    "package=com.libyaguide.moh_elwaer.gpay;" +
-                   "S.flag=1;" +
                    "S.js=" + js + ";" +
-                   "S.callback_url=" + callback + ";" +
                    "end";
            try {
                Intent intent = Intent.parseUri(uri, Intent.URI_INTENT_SCHEME);
@@ -47,15 +44,10 @@ public class WebAppInterface {
        }
     @JavascriptInterface
     public void onConfirmClicked(String requestId, String requestTime) {
-        Log.d("test1", "Confirm button clicked from WebView");
-        Log.d("test1","test "+PaymentWebViewActivity.paymentResultListener);
-        Log.d("test1","test "+requestId + ": "+ requestTime);
         if (PaymentWebViewActivity.paymentResultListener != null) {
             PaymentWebViewActivity.paymentResultListener.checkPayment(UUID.fromString(requestId), requestTime);
         }
 
-        // Optional: close SDK
-//        PaymentWebViewActivity.closePaymentActivity();
     }
     }
 
