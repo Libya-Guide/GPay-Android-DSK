@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Binder;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -17,7 +18,6 @@ public class GpayPayment implements Serializable {
     private String baseUrl;
     private String requestTimestamp;
 
-//    public static PaymentResultListener paymentResultListener;
     public GpayPayment(String amount, String requestId, String requester_username, String requestTimestamp , GpayUrl gpayUrl) {
         this.amount = amount;
         this.requestId = requestId;

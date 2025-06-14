@@ -1,7 +1,9 @@
 package com.example.gpaypaymentsdk;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
@@ -26,6 +28,7 @@ public class WebAppInterface {
            json.put("requester_username", requester_username);
            json.put("request_time", request_time);
            json.put("app_name", app_name);
+           json.put("platform", "android");
 
            String js = URLEncoder.encode(json.toString(), "UTF-8");
 
@@ -39,7 +42,18 @@ public class WebAppInterface {
                Intent intent = Intent.parseUri(uri, Intent.URI_INTENT_SCHEME);
                mContext.startActivity(intent);
            } catch (Exception e) {
-               Toast.makeText(mContext, "App2 not installed", Toast.LENGTH_SHORT).show();
+               Toast.makeText(mContext, "GPay App not installed", Toast.LENGTH_SHORT).show();
+               try {
+                   Intent playStoreIntent = new Intent(Intent.ACTION_VIEW,
+                           Uri.parse("market://details?id=com.libyaguide.moh_elwaer.gpay"));
+                   playStoreIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                   mContext.startActivity(playStoreIntent);
+               } catch (ActivityNotFoundException ex) {
+                   Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                           Uri.parse("https://play.google.com/store/apps/details?id=com.libyaguide.moh_elwaer.gpay"));
+                   browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                   mContext.startActivity(browserIntent);
+               }
            }
        }
     @JavascriptInterface
