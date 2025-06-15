@@ -11,7 +11,7 @@ The **GPay Payment SDK** allows Android developers to easily launch a payment pa
 ## 📦 SDK Installation
 
 ### 1. Add JitPack to your root `build.gradle`
-
+#### ✅ Groovy (Java - `build.gradle`)
 ```groovy
 allprojects {
     repositories {
@@ -19,11 +19,31 @@ allprojects {
     }
 }
 ```
+#### ✅ Kotlin DSL (settings.gradle.kts)
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven(url = "https://jitpack.io")
+    }
+}
+```
 ### 2. Add the dependency to your app's build.gradle`
+
+#### ✅ Groovy 
+
 ```groovy
 dependencies {
-	   implementation 'com.github.Libya-Guide:GPay-Android-DSK:0.0.1'
-	}
+	   implementation 'com.github.Libya-Guide:GPay-Android-DSK:latest'
+}
+```
+#### ✅ Kotlin DSL
+```kotlin
+dependencies {
+    implementation("com.github.Libya-Guide:GPay-Android-DSK:latest")
+}
 ```
 ### 3. Sync your project.
  You’re now ready to use the SDK in your app.
@@ -31,7 +51,7 @@ dependencies {
 ## 🚀 Usage
 To trigger a payment using the SDK, create a GpayPayment instance with the required parameters and call show(). You will receive the result via the PaymentResultListener.
 
-### ✅ Example
+### ✅ Example (java)
  ``` java
 public void onPayWithGpayClicked(View view) {
     GpayPayment payWithGpay = new GpayPayment(
@@ -50,6 +70,24 @@ public void onPayWithGpayClicked(View view) {
     });
 }
 ```
+### ✅ Example (kotlin)
+ ``` kotlin
+fun onPayWithGpayClicked(view: View) {
+    val payWithGpay = GpayPayment(
+        "50.000", // Amount
+        "0edf0e40-62ab-4b80-83d6-c9fd7ce801f1", // Request ID (UUID)
+        "requester_username", // Requester username
+        "1746524431038", // Request timestamp
+        GpayUrl.TESTING_STAGE // Environment: GpayUrl.PRODUCTION or GpayUrl.TESTING_STAGE
+    )
+
+    payWithGpay.show(this, object : PaymentResultListener {
+        override fun checkPayment(requestId: UUID, requestTimestamp: String) {
+            // Perform your check-payment request here
+        }
+    })
+    }
+   ```
 ### 📘 Notes 
 **Choose the correct environment:**
 - `GpayUrl.PRODUCTION` – for live usage  

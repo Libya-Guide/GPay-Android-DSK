@@ -37,7 +37,8 @@ public class GpayPayment implements Serializable {
                     "&requester_username=" + requesterUsername +
                     "&request_id=" + requestId +
                     "&request_time=" + requestTimestamp+
-                    "&app_name=" + URLEncoder.encode(appName, "UTF-8");
+                    "&app_name=" + URLEncoder.encode(appName, "UTF-8")+
+                    "&platform=android";
 
             Intent intent = new Intent(activity, PaymentWebViewActivity.class);
             intent.putExtra("url", fullUrl);
